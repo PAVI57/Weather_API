@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="text-align: center;">
+    Enter : <input type="text" id="weather" placeholder="Enter the city name" class="inputs">
+    <br><br>
+    <button onclick="fetchData()" class="buttons">Fetch Weather</button>
+    <h1 class="name"></h1>
+    <p class="desc"></p>
+    <p class="temp"></p>
+    
+</body>
+<script>
+    fetchData();
+    var buttons = document.querySelector('.buttons')
+    var inputs = document.querySelector('.inputs')
+    var name = document.querySelector('.name')
+    var desc = document.querySelector('.desc')
+    var temp = document.querySelector('.temp')
+    async function fetchData(){
+  fetch('https://api.openweathermap.org/data/2.5/weather?q=' + inputs.value + '&appid=4e8d6018293e453a79d51770d5c65480')
+  .then(response => response.json())
+  .then(data => {
+    var nameValue = data['name'];
+    var tempValue = data['main']['temp'];
+    var descValue = data['weather'][0]['description'];
+    name.innerHTML=nameValue;
+    desc.innerHTML=descValue;
+    temp.innerHTML=tempValue;
+  })
+
+    .catch(error => (
+    console.error(error)
+    ));
+    }
+
+</script>
+</html>
